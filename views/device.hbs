@@ -1,0 +1,5 @@
+<h1>{{device.name}}</h1>
+<h3> Device ID : {{device.id}}</h3>
+<form action="/users/delete/{{device.id}}?_method=DELETE" method="POST">
+    <input type="submit" class="btn btn-danger pull-right" value="Delete">
+</form>

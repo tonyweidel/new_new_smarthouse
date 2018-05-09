@@ -1,0 +1,24 @@
+<h3>Add a Device</h3>
+
+{{#if error}} <span>{{error}}</span>{{/if}}
+<form action="/users/add" method="post">
+    <div class="">
+        <label>ID</label>
+        <input type="text" name="id" class="" placeholder="Add Id Key Number">
+    </div>
+    <div class="">
+        <label>Name</label>
+        <input type="text" name="devicename" class="" placeholder="Add Name">
+    </div>
+    <div class="">
+        <label>Type</label>
+        <select class="" name="type">
+            <option name="type" value="light">light</option>
+            <option name="type" value="dimlight">dimlight</option>
+            <option name="type" value="television">television</option>
+            <option name="type" value="speaker">speaker</option>
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Save">
+</form>
+<a class="btn btn-default" href="/">Back</a>
