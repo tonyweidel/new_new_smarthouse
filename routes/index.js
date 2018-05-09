@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const redis = require('redis');
+const router = express.Router();
 
-var redis = require('redis');
-
-let client = redis.createClient();
+let client  = redis.createClient();
 
 //Redis client
 client.on('connect',function(){
@@ -15,8 +14,23 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'the devices page', otherthing:"otherstring"});
 });
 
-router.get('/all_devices', function(req, res, next) {
-    res.render('devices');
+router.get('/all_devices',function(req, res, next){
+
+    client.keys('device*', function(err, data){
+        if(err){
+            console.log(err);
+        }
+        else{
+            let devicelist = {};
+
+            for(let d=0; d<data.length; d++){
+                let item = "dvc"+d;
+                devicelist[item] = data[d];
+            }
+            res.render('devices', devicelist);
+            console.log(data);
+        }
+    });
 });
 
 router.get('/add', function(req, res, next) {
@@ -49,5 +63,7 @@ router.post('/search/',function (req, res, next){
         }
     })
 });
+
+
 
 module.exports = router;
